@@ -348,6 +348,15 @@
       pointer-events: auto;
     }
 
+    .slider .item.active a {
+     pointer-events: auto;
+     cursor: pointer;
+    }
+
+    .slider .item.active img, .slider .item.active .glow-wrap {
+     pointer-events: auto;
+    }
+
     .slider .item:not(.active) .glow-wrap:hover img {
       transform: none;
       box-shadow: none;
