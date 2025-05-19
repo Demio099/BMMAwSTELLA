@@ -24,6 +24,11 @@
       pointer-events: none;
     }
 
+    img {
+     user-drag: none;
+    -webkit-user-drag: none;
+    }
+
     .custom-cursor {
       position: fixed;
       top: 0;
