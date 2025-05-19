@@ -342,14 +342,17 @@
     }
     .slider .item.active img {
       pointer-events: auto;
+      cursor: none;
     }
 
     .slider .item.active .glow-wrap {
       pointer-events: auto;
+      cursor: none;
     }
 
     .slider .item.active a {
      pointer-events: auto;
+     cursor: none;
     }
 
     .slider .item.active img,
