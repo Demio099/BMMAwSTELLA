@@ -217,7 +217,6 @@
       -webkit-user-drag: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       border-radius: 12px;
-      pointer-events: none;
     }
 
     .glow-wrap {
@@ -253,7 +252,6 @@
       height: 100%;
       object-fit: contain;
       transition: transform 0.5s ease;
-      pointer-events: none;
     }
     
     .glow-wrap:hover img {
@@ -341,6 +339,13 @@
     .slider .item.active {
       pointer-events: auto;
       opacity: 1;
+    }
+    .slider .item.active img {
+      pointer-events: auto;
+    }
+
+    .slider .item.active .glow-wrap {
+      pointer-events: auto;
     }
 
     .slider .item:not(.active) .glow-wrap:hover img {
