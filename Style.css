@@ -358,6 +358,10 @@
      pointer-events: auto;
     }
 
+    .slider .item.active .glow-wrap:hover {
+     cursor: none;
+    }
+
     .slider .item:not(.active) .glow-wrap:hover img {
       transform: none;
       box-shadow: none;
