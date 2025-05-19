@@ -350,7 +350,6 @@
 
     .slider .item.active a {
      pointer-events: auto;
-     cursor: pointer;
     }
 
     .slider .item.active img,
