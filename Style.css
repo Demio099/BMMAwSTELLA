@@ -353,7 +353,8 @@
      cursor: pointer;
     }
 
-    .slider .item.active img, .slider .item.active .glow-wrap {
+    .slider .item.active img,
+    .slider .item.active .glow-wrap {
      pointer-events: auto;
     }
 
@@ -371,6 +372,7 @@
       opacity: 0.10;
       filter: blur(5px);
     }
+
     .site-footer {
       position: fixed;
       bottom: 0;
@@ -385,4 +387,11 @@
       pointer-events: none; /* So it doesn't block clicks on your carousel */
       text-shadow: 0 0 4px #000;
     }
+
+    a:hover,
+   .slider .item.active a:hover {
+     cursor: none;
+   }
+
+
  
