@@ -395,9 +395,19 @@
     }
 
     a:hover,
-   .slider .item.active a:hover {
+    .slider .item.active a:hover {
      cursor: none;
-   }
+    }
+
+    body,
+    a,
+    a:hover,
+    .slider .item.active a:hover,
+    .slider .item.active .glow-wrap:hover {
+    cursor: none !important;
+    }
+
+     
 
 
  
