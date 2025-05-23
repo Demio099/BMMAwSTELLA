@@ -114,3 +114,10 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize first active item
   updateActiveItem();
 });
+window.addEventListener('load', () => {
+  const music = document.getElementById('bg-music');
+  music.volume = 0.5;
+  music.play().catch(err => {
+    console.log("Autoplay blocked. Waiting for interaction...");
+  });
+});
