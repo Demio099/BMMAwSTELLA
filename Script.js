@@ -114,12 +114,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize first active item
   updateActiveItem();
 });
-<script>
 function myFunction() {
   var x = document.getElementById("myAudio").autoplay;
-  document.getElementById("demo").innerHTML = x;
-}
-function myFunction() {
-  var x = document.getElementById("myAudio").autoplay;
-  document.getElementById("demo").innerHTML = x;
+  x. autoplay
 }
