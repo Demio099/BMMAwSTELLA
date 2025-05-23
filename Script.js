@@ -114,10 +114,37 @@ document.addEventListener('DOMContentLoaded', () => {
   // Initialize first active item
   updateActiveItem();
 });
-window.addEventListener('load', () => {
-  const music = document.getElementById('bg-music');
-  music.volume = 0.5;
-  music.play().catch(err => {
-    console.log("Autoplay blocked. Waiting for interaction...");
+document.addEventListener('DOMContentLoaded', () => {
+  const bgMusic = document.getElementById('bg-music');
+
+  // Fade out intro screen
+  window.addEventListener('load', () => {
+    const intro = document.getElementById('intro-screen');
+    setTimeout(() => {
+      intro.classList.add('fade-out');
+
+      // ⏰ After intro fades out, play music
+      setTimeout(() => {
+        intro.remove();
+
+        // Start music (will only succeed after user interaction)
+        bgMusic.volume = 0.5; // optional
+        bgMusic.play().catch(err => {
+          console.log("Music autoplay blocked, waiting for interaction...");
+
+          // Fallback: play on first user click/tap
+          const resumeMusic = () => {
+            bgMusic.play().catch(() => {});
+            document.removeEventListener('click', resumeMusic);
+            document.removeEventListener('touchstart', resumeMusic);
+          };
+
+          document.addEventListener('click', resumeMusic);
+          document.addEventListener('touchstart', resumeMusic);
+        });
+      }, 1000); // ⏳ Wait until fade-out finishes
+    }, 3000); // ⏳ Duration of intro
   });
+
+  // (rest of your script follows...)
 });
