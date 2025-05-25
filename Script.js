@@ -13,6 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const links = slider.querySelectorAll('a');
   const cursor = document.querySelector('.custom-cursor');
   const background = document.querySelector('body::before');
+  const bgLayer = document.getElementById('bg-scroll-layer');
 
   let isDragging = false;
   let hasMoved = false;
@@ -23,9 +24,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateRotation = (angle) => {
     slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${angle}deg)`;
 
-    const bgLayer = document.getElementById('bg-scroll-layer');
-  const offsetX = (angle % 360) * 2; // adjust multiplier to control scroll speed
-  bgLayer.style.transform = `translateX(-${offsetX}px)`;
+  const offsetX = (angle % 360) * 2; // adjust scroll speed
+    bgLayer.style.transform = `translateX(-${offsetX}px)`;
   };
 
   const updateActiveItem = () => {
@@ -53,8 +53,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const drag = (x) => {
     if (!isDragging) return;
     let deltaX = x - startX;
-    if (Math.abs(deltaX) > 5) hasMoved = true;
-    updateRotation(currentRotation + deltaX * 0.3);
+   const rotationDelta = deltaX * 0.3;
+    lastRotation = currentRotation + rotationDelta;
+  updateRotation(lastRotation); // ← live update!
   };
 
   const endDrag = (x) => {
