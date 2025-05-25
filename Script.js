@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
     slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg)`;
 
     // Scroll background in sync
-    const offsetX = currentRotation * 2; // Adjust scroll speed
+    const offsetX = (currentRotation % 360) * 2;
     bgLayer.style.transform = `translateX(-${offsetX}px)`;
   };
 
