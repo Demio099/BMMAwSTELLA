@@ -406,6 +406,7 @@
      width: 500vw;
      height: 100vh;
      background-image: url(Images/new_background.png);
+     background-size: auto 100%;
      background-repeat: repeat-x;
      background-size: cover;
      background-position: center center;
