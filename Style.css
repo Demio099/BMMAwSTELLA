@@ -1,4 +1,4 @@
-    * {
+      * {
       margin: 0;
       padding: 0;
       box-sizing: border-box;
@@ -24,6 +24,11 @@
       pointer-events: none;
     }
 
+    img {
+     user-drag: none;
+    -webkit-user-drag: none;
+    }
+
     .custom-cursor {
       position: fixed;
       top: 0;
@@ -33,7 +38,7 @@
       pointer-events: none;
       z-index: 9999;
       transform: translate(-50%, -50%);
-      
+
     }
 
     .custom-cursor img {
@@ -49,7 +54,7 @@
     .custom-cursor.pop {
       animation: popClick 0.5s ease;
     }
-    
+
     @keyframes popClick {
       0% {
         transform: translate(-50%, -50%) scale(1);
@@ -76,7 +81,7 @@
       animation: shockwave 0.5s ease-out forwards;
       z-index: 9998;
     }
-    
+
     @keyframes shockwave {
       0% {
         opacity: 0.8;
@@ -214,11 +219,9 @@
       -moz-user-select: none;
       -ms-user-select: none;
       user-select: none;
-      pointer-events: none;
       -webkit-user-drag: none;
       transition: transform 0.3s ease, box-shadow 0.3s ease;
       border-radius: 12px;
-      pointer-events: none;
     }
 
     .glow-wrap {
@@ -227,7 +230,7 @@
       height: 100%;
       display: inline-block;
     }
-    
+
     .glow-wrap::before {
       content: '';
       position: absolute;
@@ -243,36 +246,35 @@
       transition: opacity 0.3s ease;
       z-index: 0;
     }
-    
+
     .glow-wrap:hover::before {
       opacity: 1;
     }
-    
+
     .glow-wrap img {
       position: relative; 
       width: 100%;
       height: 100%;
       object-fit: contain;
       transition: transform 0.5s ease;
-      pointer-events: none;
     }
-    
+
     .glow-wrap:hover img {
       transform: scale(1.50);
       position: absolute;
       display: block;
       left: 50px; 
     }
-        
+
     .item img.hover {
       z-index: 2;
       opacity: 0;
     }
-    
+
     .item:hover img.default {
       opacity: 0;
     }
-    
+
     .item:hover img.hover {
       opacity: 1;
     }
@@ -289,7 +291,7 @@
       justify-content: space-between;
       align-items: center;
       z-index: 1;
-      
+
     }
 
     .banner .content .model {
@@ -338,10 +340,33 @@
       opacity: 0.10;
       transition: opacity 0.3s ease;
     }
-    
+
     .slider .item.active {
       pointer-events: auto;
       opacity: 1;
+    }
+    .slider .item.active img {
+      pointer-events: auto;
+      cursor: none;
+    }
+
+    .slider .item.active .glow-wrap {
+      pointer-events: auto;
+      cursor: none;
+    }
+
+    .slider .item.active a {
+     pointer-events: auto;
+     cursor: none;
+    }
+
+    .slider .item.active img,
+    .slider .item.active .glow-wrap {
+     pointer-events: auto;
+    }
+
+    .slider .item.active .glow-wrap:hover {
+     cursor: none;
     }
 
     .slider .item:not(.active) .glow-wrap:hover img {
@@ -358,6 +383,7 @@
       opacity: 0.10;
       filter: blur(5px);
     }
+
     .site-footer {
       position: fixed;
       bottom: 0;
@@ -372,4 +398,16 @@
       pointer-events: none; /* So it doesn't block clicks on your carousel */
       text-shadow: 0 0 4px #000;
     }
- 
+
+    a:hover,
+    .slider .item.active a:hover {
+     cursor: none;
+    }
+
+    body,
+    a,
+    a:hover,
+    .slider .item.active a:hover,
+    .slider .item.active .glow-wrap:hover {
+    cursor: none !important;
+    }
