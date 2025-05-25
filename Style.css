@@ -399,21 +399,20 @@
     cursor: none !important;
     }
 
-    #bg-scroll-layer {
-     position: fixed;
-     top: 0;
-     left: -100vw;
-     width: 300vw;
-     height: 100vh;
-     background-image: url(Images/new_background.png);
-     background-size: auto 100%;
-     background-repeat: repeat-x;
-     background-size: cover;
-     background-position: center center;
-     z-index: 1;
-     pointer-events: none;
-     transition: background-position 0.3s ease-out;
-    }
+   #bg-scroll-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 300vw; /* adjust based on image */
+  height: 100vh;
+  background-image: url(Images/background.png);
+  background-size: cover;
+  background-repeat: repeat-x;
+  z-index: -1;
+  pointer-events: none;
+  transform: translateX(0);
+  transition: transform 0.3s ease-out;
+}
      
 
 
