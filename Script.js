@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-  // Fade out intro screen
+  // Intro fade out
   window.addEventListener('load', () => {
     const intro = document.getElementById('intro-screen');
     setTimeout(() => {
@@ -12,7 +12,6 @@ document.addEventListener('DOMContentLoaded', () => {
   const items = document.querySelectorAll('.slider .item');
   const links = slider.querySelectorAll('a');
   const cursor = document.querySelector('.custom-cursor');
-  const background = document.querySelector('body::before');
   const bgLayer = document.getElementById('bg-scroll-layer');
 
   let isDragging = false;
@@ -20,11 +19,16 @@ document.addEventListener('DOMContentLoaded', () => {
   let startX = 0;
   let currentRotation = 0;
   let currentIndex = 0;
+  let lastRotation = 0;
 
   const updateRotation = (angle) => {
-    slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${angle}deg)`;
+    // Normalize rotation
+    currentRotation = ((angle % 360) + 360) % 360;
 
-  const offsetX = (angle % 360) * 2; // adjust scroll speed
+    slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg)`;
+
+    // Scroll background in sync
+    const offsetX = currentRotation * 2; // Adjust scroll speed
     bgLayer.style.transform = `translateX(-${offsetX}px)`;
   };
 
@@ -38,8 +42,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const anglePerItem = 360 / items.length;
     const nearestAngle = Math.round(currentRotation / anglePerItem) * anglePerItem;
     currentRotation = nearestAngle;
+
+    // Wrap angle to 0–360
     const normalizedRotation = ((360 - currentRotation % 360) + 360) % 360;
     currentIndex = Math.round(normalizedRotation / anglePerItem) % items.length;
+
     updateRotation(currentRotation);
     updateActiveItem();
   };
@@ -52,39 +59,41 @@ document.addEventListener('DOMContentLoaded', () => {
 
   const drag = (x) => {
     if (!isDragging) return;
-    let deltaX = x - startX;
-   const rotationDelta = deltaX * 0.3;
-    lastRotation = currentRotation + rotationDelta;
-  updateRotation(lastRotation); // ← live update!
+    const deltaX = x - startX;
+    if (Math.abs(deltaX) > 5) hasMoved = true;
+    lastRotation = currentRotation + deltaX * 0.3;
+    updateRotation(lastRotation); // live rotation while dragging
   };
 
   const endDrag = (x) => {
     if (!isDragging) return;
-    let deltaX = x - startX;
+    const deltaX = x - startX;
     currentRotation += deltaX * 0.3;
     snapToNearest();
     isDragging = false;
   };
 
-  // Event Listeners
+  // Mouse & touch events
   slider.addEventListener('mousedown', (e) => startDrag(e.clientX));
   window.addEventListener('mousemove', (e) => drag(e.clientX));
   window.addEventListener('mouseup', (e) => endDrag(e.clientX));
   slider.addEventListener('touchstart', (e) => startDrag(e.touches[0].clientX));
   window.addEventListener('touchmove', (e) => drag(e.touches[0].clientX));
   window.addEventListener('touchend', (e) => endDrag(e.changedTouches[0].clientX));
+
+  // Fallback for edge cases
   window.addEventListener('mouseleave', () => isDragging && (isDragging = false, snapToNearest()));
   document.addEventListener('mouseout', (e) => !e.relatedTarget && isDragging && (isDragging = false, snapToNearest()));
 
-  // Prevent link clicks while dragging
+  // Prevent accidental link clicks when dragging
   links.forEach(link => {
     link.addEventListener('click', (e) => {
       if (hasMoved) e.preventDefault();
     });
-    link.draggable = false; // prevent ghost dragging
+    link.draggable = false; // Disable image dragging
   });
 
-  // Wheel scroll rotation
+  // Scroll wheel rotation
   slider.addEventListener('wheel', (e) => {
     e.preventDefault();
     const delta = e.deltaY;
@@ -92,7 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     snapToNearest();
   }, { passive: false });
 
-  // Custom cursor
+  // Custom cursor tracking
   const OFFSET_X = -10;
   const OFFSET_Y = -12;
 
@@ -101,15 +110,14 @@ document.addEventListener('DOMContentLoaded', () => {
     cursor.style.top = `${e.clientY - OFFSET_Y}px`;
   });
 
+  // Pop effect & shockwave
   document.addEventListener('mousedown', (e) => {
     cursor.classList.add('pop');
-
     const wave = document.createElement('div');
     wave.classList.add('click-wave');
     wave.style.left = `${e.clientX + OFFSET_X}px`;
     wave.style.top = `${e.clientY + OFFSET_Y}px`;
     document.body.appendChild(wave);
-
     wave.addEventListener('animationend', () => wave.remove());
   });
 
@@ -117,6 +125,6 @@ document.addEventListener('DOMContentLoaded', () => {
     cursor.classList.remove('pop');
   });
 
-  // Initialize first active item
+  // Initialize first state
   updateActiveItem();
 });
