@@ -22,14 +22,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastRotation = 0;
 
   const updateRotation = (angle) => {
-    // Normalize rotation
-    currentRotation = ((angle % 360) + 360) % 360;
-
     slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg)`;
 
-    const scrollSpeed = 2; // You can tweak this
-  const scrollAmount = currentRotation * scrollSpeed;
-  bgLayer.style.backgroundPosition = `-${scrollAmount}px center`;
+   const bgLayer = document.getElementById('bg-scroll-layer');
+  const offsetX = (angle % 360) * 3; // tune this multiplier for speed/sync
+  bgLayer.style.transform = `translateX(-${offsetX}px)`;
   };
 
   const updateActiveItem = () => {
