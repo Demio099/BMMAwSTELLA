@@ -402,7 +402,7 @@
     #bg-scroll-layer {
   position: fixed;
   top: 0;
-  left: 100vw; /* Shift it left so center is visible */
+  right: 100vw; /* Shift it left so center is visible */
   width: 300vw;  /* Wide enough to scroll both ways */
   height: 100vh;
   background-image: url(Images/new_background.png);
