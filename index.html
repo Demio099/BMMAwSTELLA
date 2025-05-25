@@ -3,52 +3,82 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <link rel="stylesheet" href="Style.css">
+  <link rel="stylesheet" href="Style.css?v=2"> <!-- Add versioning to avoid cache issues -->
   <title>STELLA Universe</title>
 </head>
 <body>
+
+  <!-- 🌌 Intro Screen -->
   <div id="intro-screen">
     <h1>Let's dive and explore the universe of <strong>BMMA with STELLA</strong></h1>
     <video autoplay muted loop>
       <source src="Images/intro_bg1.mp4" type="video/mp4" />
     </video>
   </div>
-  <div id="bg-scroll-layer"></div>
+
+  <!-- 🎡 Carousel Banner -->
   <div class="banner">
     <div class="slider" style="--quantity: 4">
-        <div class="item" style="--position: 1">
+
+      <div class="item" style="--position: 1">
+        <div class="glow-wrap">
           <a href="https://www.bmmawithstella.com/introduction">
-          <div class="glow-wrap">
-          <img src="Images/Introo.png" class="" alt=""/>
-          <img src="Images/Intro_H.png" class="hover" alt=""/>
-          </a></div></div>
-        <div class="item" style="--position: 2">
+            <img src="Images/Introo.png" alt="">
+            <img src="Images/Intro_H.png" class="hover" alt="">
+          </a>
+        </div>
+      </div>
+
+      <div class="item" style="--position: 2">
+        <div class="glow-wrap">
           <a href="https://www.bmmawithstella.com/curriculum">
-          <div class="glow-wrap">
-          <img src="Images/Curriculumm.png"  alt=""/>
-          <img src="Images/Curriculum_H.png" class="hover" alt=""/>
-           </a></div></div>
-        <div class="item" style="--position: 3">
-           <a href="https://www.bmmawithstella.com/skills">
-          <div class="glow-wrap">
-          <img src="Images/Skillss.png"  class="" alt=""/>
-          <img src="Images/Skills_H.png" class="hover" alt=""/>
-           </a></div></div>
-        <div class="item" style="--position: 4">
+            <img src="Images/Curriculumm.png" alt="">
+            <img src="Images/Curriculum_H.png" class="hover" alt="">
+          </a>
+        </div>
+      </div>
+
+      <div class="item" style="--position: 3">
+        <div class="glow-wrap">
+          <a href="https://www.bmmawithstella.com/skills">
+            <img src="Images/Skillss.png" alt="">
+            <img src="Images/Skills_H.png" class="hover" alt="">
+          </a>
+        </div>
+      </div>
+
+      <div class="item" style="--position: 4">
+        <div class="glow-wrap">
           <a href="https://www.bmmawithstella.com/jobs">
-          <div class="glow-wrap">
-          <img src="Images/Jobss.png" class="" alt=""/>
-          <img src="Images/Jobs_H.png" class="hover" alt=""/>
-          </a></div></div>
+            <img src="Images/Jobss.png" alt="">
+            <img src="Images/Jobs_H.png" class="hover" alt="">
+          </a>
+        </div>
+      </div>
+
+    </div> <!-- .slider -->
+
     <div class="content">
       <div class="model"></div>
     </div>
-  </div>
+
+  </div> <!-- .banner -->
+
+  <!-- 🖱️ Custom Cursor -->
   <div class="custom-cursor">
     <img src="Images/Cursor.gif" alt="custom cursor">
   </div>
-  <script src="Script.js"></script>
+
+  <!-- ⚙️ Script -->
+  <script src="Script.js?v=2"></script>
+
+  <!-- 📌 Footer -->
   <footer class="site-footer">
+    <p>© 2025 STELLA. All rights reserved.</p>
+  </footer>
+
+</body>
+</html>
     <p>© 2025 STELLA. All rights reserved.</p>
   </footer>
 </body>
