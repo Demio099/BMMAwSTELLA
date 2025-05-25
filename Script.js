@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const items = document.querySelectorAll('.slider .item');
   const links = slider.querySelectorAll('a');
   const cursor = document.querySelector('.custom-cursor');
-  const bgLayer = document.getElementById('bg-scroll-layer');
+  const background = document.querySelector('body::before');
 
   let isDragging = false;
   let hasMoved = false;
