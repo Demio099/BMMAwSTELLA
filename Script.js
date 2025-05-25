@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const items = document.querySelectorAll('.slider .item');
   const links = slider.querySelectorAll('a');
   const cursor = document.querySelector('.custom-cursor');
-  const background = document.querySelector('body::before');
+  const bgLayer = document.getElementById('bg-scroll-layer');
 
   let isDragging = false;
   let hasMoved = false;
@@ -22,13 +22,14 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastRotation = 0;
 
   const updateRotation = (angle) => {
-  currentRotation = ((angle % 360) + 360) % 360;
+    // Normalize rotation
+    currentRotation = ((angle % 360) + 360) % 360;
 
-  slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg)`;
+    slider.style.transform = perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg);
 
-   const bgLayer = document.getElementById('bg-scroll-layer');
-  const offsetX = (angle % 360) * 3; // tune this multiplier for speed/sync
-  bgLayer.style.transform = `translateX(-${offsetX}px)`;
+    // Scroll background in sync
+    const scrollAmount = (currentRotation % 360) * 2;
+    bgLayer.style.backgroundPosition = -${scrollAmount}px center;
   };
 
   const updateActiveItem = () => {
@@ -105,8 +106,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const OFFSET_Y = -12;
 
   document.addEventListener('mousemove', (e) => {
-    cursor.style.left = `${e.clientX - OFFSET_X}px`;
-    cursor.style.top = `${e.clientY - OFFSET_Y}px`;
+    cursor.style.left = ${e.clientX - OFFSET_X}px;
+    cursor.style.top = ${e.clientY - OFFSET_Y}px;
   });
 
   // Pop effect & shockwave
@@ -114,8 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
     cursor.classList.add('pop');
     const wave = document.createElement('div');
     wave.classList.add('click-wave');
-    wave.style.left = `${e.clientX + OFFSET_X}px`;
-    wave.style.top = `${e.clientY + OFFSET_Y}px`;
+    wave.style.left = ${e.clientX + OFFSET_X}px;
+    wave.style.top = ${e.clientY + OFFSET_Y}px;
     document.body.appendChild(wave);
     wave.addEventListener('animationend', () => wave.remove());
   });
