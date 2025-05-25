@@ -27,9 +27,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg)`;
 
-    // Scroll background in sync
-    const scrollAmount = (currentRotation % 360) * 2;
-    bgLayer.style.backgroundPosition = `-${scrollAmount}px center`;
+    const scrollFactor = 2; // adjust scroll speed here
+    const centerOffset = 180 * scrollFactor; // 360/2 * scrollFactor
+    const scrollAmount = (currentRotation % 360) * scrollFactor;
+      bgLayer.style.backgroundPosition = `${centerOffset - scrollAmount}px center`;
   };
 
   const updateActiveItem = () => {
