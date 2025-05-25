@@ -23,9 +23,9 @@ document.addEventListener('DOMContentLoaded', () => {
   const updateRotation = (angle) => {
     slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${angle}deg)`;
 
-     const bgLayer = document.getElementById('bg-scroll-layer');
-     const offsetX = (angle % 360) * 3; // tune this multiplier for speed/sync
-           bgLayer.style.transform = `translateX(-${offsetX}px)`;
+    const bgLayer = document.getElementById('bg-scroll-layer');
+  const offsetX = (angle % 360) * 2; // adjust multiplier to control scroll speed
+  bgLayer.style.transform = `translateX(-${offsetX}px)`;
   };
 
   const updateActiveItem = () => {
