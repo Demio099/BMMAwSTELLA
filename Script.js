@@ -22,7 +22,9 @@ document.addEventListener('DOMContentLoaded', () => {
   let lastRotation = 0;
 
   const updateRotation = (angle) => {
-    slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg)`;
+  currentRotation = ((angle % 360) + 360) % 360;
+
+  slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg)`;
 
    const bgLayer = document.getElementById('bg-scroll-layer');
   const offsetX = (angle % 360) * 3; // tune this multiplier for speed/sync
