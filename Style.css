@@ -402,8 +402,8 @@
     #bg-scroll-layer {
   position: fixed;
   top: 0;
-  left: 0;
-  width: 300vw;  /* Wide enough to scroll both ways */
+  left: -100vw;        /* shift left so center of image aligns with center of screen */
+  width: 300vw;         /* wide enough to scroll both left and right */
   height: 100vh;
   background-image: url(Images/new_background.png);
   background-repeat: repeat-x;
