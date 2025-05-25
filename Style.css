@@ -10,21 +10,7 @@
       overflow: hidden;
       cursor: none;
     }
-    body::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 300%;
-      height: 100%;
-      background-image: url(Images/new_background.png);
-      background-size: cover;
-      background-repeat: repeat-x;
-      background-position: center center;
-      transform: translateX(0);
-      transition: transform 0.3s ease-out;
-      z-index: -1;
-    }
+   
     img {
      user-drag: none;
     -webkit-user-drag: none;
@@ -419,7 +405,7 @@
       left: 0;
       width: 300vw; /* adjust based on image */
       height: 100vh;
-      background-image: url(Images/background.png);
+      background-image: url(Images/new_background.png);
       background-size: cover;
       background-repeat: repeat-x;
       z-index: -1;
