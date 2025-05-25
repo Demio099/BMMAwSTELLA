@@ -27,11 +27,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     slider.style.transform = `perspective(1000px) rotateX(-16deg) rotateY(${currentRotation}deg)`;
 
-    const scrollFactor = 2;
-    const baseOffset = 210; // tweak this if you want to shift the center
-    const scrollAmount = ((currentRotation % 360) * scrollFactor);
-    const centerOffset = baseOffset * scrollFactor;
-    bgLayer.style.backgroundPosition = `${centerOffset - scrollAmount}px center`;
+    const scrollSpeed = 2; // You can tweak this
+  const scrollAmount = currentRotation * scrollSpeed;
+  bgLayer.style.backgroundPosition = `-${scrollAmount}px center`;
   };
 
   const updateActiveItem = () => {
