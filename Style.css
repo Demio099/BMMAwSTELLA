@@ -403,7 +403,7 @@
      position: fixed;
      top: 0;
      left: 0;
-     width: 100%;
+     width: 500vw;
      height: 100vh;
      background-image: url(Images/new_background.png);
      background-repeat: repeat-x;
