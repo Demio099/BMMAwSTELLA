@@ -402,7 +402,7 @@
     #bg-scroll-layer {
      position: fixed;
      top: 0;
-     left: 0;
+     left: -100vw;
      width: 300vw;
      height: 100vh;
      background-image: url(Images/new_background.png);
