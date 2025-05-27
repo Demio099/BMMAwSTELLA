@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Hologram Quiz</title>
   <style>
     html, body {
@@ -14,8 +14,6 @@
     body {
       font-family: 'Orbitron', sans-serif;
       background: url(Images/background.png);
-      background-size: cover;
-      background-position: center;
       color: #00ffe5;
       padding: 20px;
       display: flex;
@@ -171,18 +169,16 @@
       to { opacity: 1; }
     }
 
+    @keyframes textFadeIn {
+      to { opacity: 1; }
+    }
+
     @keyframes pulse {
       0%, 100% {
         text-shadow: 0 0 10px #5be4ff, 0 0 20px #2bc4ff;
       }
       50% {
         text-shadow: 0 0 20px #a3f7ff, 0 0 40px #2bc4ff;
-      }
-    }
-
-    @keyframes textFadeIn {
-      to {
-        opacity: 1;
       }
     }
 
@@ -207,7 +203,58 @@
   </div>
 
   <script>
-    const questions = [/* your question objects */];
+    const questions = [
+      {
+        question: "What can be an effective guide for good composition?",
+        options: ["The rule of thirds", "The golden triangle rule", "The rule of odds"],
+        answer: 0
+      },
+      {
+        question: "What is the main purpose of a camera's built in light meter?",
+        options: ["To measure the amount of light for the correct exposure level", "To tell you the correct ISO setting", "To complete the required amount of exposure thru ISO"],
+        answer: 0
+      },
+      {
+        question: "Why is it a good idea to use a DSLR camera in complete manual mode?",
+        options: ["You will always get your exposures correct", "You will have more creative control", "you will have more control both"],
+        answer: 1
+      },
+      {
+        question: "On most cameras what does AV stand for?",
+        options: ["Aperture value", "Angle variation", "Audio visual"],
+        answer: 0
+      },
+      {
+        question: "What is a pixel in photographic terms?",
+        options: ["100th of a mega pixel", "A single square unit of colour and exposure info image", "Angle variation"],
+        answer: 1
+      },
+      {
+        question: "On a full frame 35mm DSLR camera, which of the following lenses would be best for portrait work?",
+        options: ["85mm", "18mm", "35mm"],
+        answer: 0
+      },
+      {
+        question: "What is a 'prime' lens?",
+        options: ["A lens of a fixed focal length", "A portrait lens", "A telephoto lens"],
+        answer: 0
+      },
+      {
+        question: "What does the “Merge by Distance” operation actually do?",
+        options: ["Joins objects based on location", "Collapses geometry to a center point", "Merges vertices that are within a set threshold"],
+        answer: 2
+      },
+      {
+        question: "Which modifier allows you to non-destructively cut into a mesh using another object?",
+        options: ["Boolean", "Bevel", "Solidify", "Decimate"],
+        answer: 0
+      },
+      {
+        question: "What is the main difference between Auto Smooth and Normal Edit modifiers?",
+        options: ["Auto Smooth applies real-time bevels; Normal Edit changes topology", "Auto Smooth adjusts mesh normals based on angle; Normal Edit overrides normals with custom directions", "Auto Smooth is used for sculpting; Normal Edit is for retopology"],
+        answer: 1
+      }
+    ];
 
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -240,9 +287,11 @@
         button.textContent = opt;
         button.className = 'option-button';
         button.onclick = () => {
+          if (selectedOption !== null) return;
           selectedOption = index;
           document.querySelectorAll('.option-button').forEach(btn => {
             btn.style.backgroundColor = 'rgba(0, 255, 229, 0.1)';
+            btn.disabled = true;
           });
           button.style.backgroundColor = 'rgba(0, 255, 229, 0.4)';
           setTimeout(() => nextQuestion(), 500);
@@ -292,9 +341,14 @@
 
       const total = questions.length;
       const percent = (score / total) * 100;
-      let message = percent < 20 ? "Sorry, try again next time." :
-                    percent < 50 ? "Nice try, you gave it all you got!" :
-                    "Congrats, you did it!";
+      let message = "";
+      if (percent < 20) {
+        message = "Sorry, try again next time.";
+      } else if (percent < 50) {
+        message = "Nice try, you gave it all you got!";
+      } else {
+        message = "Congrats, you did it!";
+      }
 
       const result = document.getElementById("result");
       result.classList.remove("hidden");
@@ -320,4 +374,3 @@
   </script>
 </body>
 </html>
-
