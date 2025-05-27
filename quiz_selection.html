@@ -11,12 +11,17 @@
       background: radial-gradient(#000010, #000000);
       color: #00ffe5;
       margin: 0;
-      padding: 40px 20px;
+      overflow: hidden;
+    }
+
+    .quiz-page {
       display: flex;
       flex-direction: column;
       align-items: center;
-      height: 100vh;
-      overflow: hidden;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 60px 20px;
+      box-sizing: border-box;
     }
 
     .quiz-header {
@@ -126,25 +131,26 @@
   </style>
 </head>
 <body>
-
-  <div class="quiz-header">
-    <h1>WELCOME TO QUIZ SECTION</h1>
-    <p>This is where you can check and try to be a member of BMMA</p>
-  </div>
-
-  <div class="quiz-container-wrapper">
-    <div class="quiz-container">
-      <h2>Easy Quiz</h2>
-      <p>This quiz is good for those who want to know BMMA while easily understanding it.</p>
-      <a href="quiz.html" class="quiz-button">Start Easy</a>
+  <div class="quiz-page">
+    <div class="quiz-header">
+      <h1>WELCOME TO QUIZ SECTION</h1>
+      <p>This is where you can check and try to be a member of BMMA</p>
+      <p>STELLA: Hey! i know it hard but give you all! good luck!~</p>
     </div>
 
-    <div class="quiz-container">
-      <h2>Hard Quiz</h2>
-      <p>This quiz is for BMMA student entry or for those who want to become a BMMA member.</p>
-      <a href="quiz2.html" class="quiz-button">Start Hard</a>
+    <div class="quiz-container-wrapper">
+      <div class="quiz-container">
+        <h2>Easy Quiz</h2>
+        <p>This quiz is good for those who want to know BMMA. Try to understand it.</p>
+        <a href="quiz.html" class="quiz-button">Start Easy</a>
+      </div>
+
+      <div class="quiz-container">
+        <h2>Hard Quiz</h2>
+        <p>This quiz is for BMMA student entry or for those who want to become a BMMA member.</p>
+        <a href="quiz2.html" class="quiz-button">Start Hard</a>
+      </div>
     </div>
   </div>
-
 </body>
 </html>
