@@ -4,16 +4,45 @@
   <meta charset="UTF-8">
   <title>Choose Quiz</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
     body {
       font-family: 'Orbitron', sans-serif;
       background: radial-gradient(#000010, #000000);
       color: #00ffe5;
-      padding: 20px;
+      margin: 0;
+      padding: 40px 20px;
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
       height: 100vh;
+      overflow: hidden;
+    }
+
+    .quiz-header {
+      text-align: center;
+      margin-bottom: 40px;
+      animation: fadeIn 1s ease forwards;
+    }
+
+    .quiz-header h1 {
+      font-size: 36px;
+      text-shadow: 0 0 12px #00ffe5;
+      animation: pulseGlow 2s infinite alternate;
+      margin: 0 0 10px;
+    }
+
+    .quiz-header p {
+      font-size: 16px;
+      text-shadow: 0 0 5px #00ffe5;
+      margin: 0;
+    }
+
+    .quiz-container-wrapper {
+      display: flex;
       gap: 40px;
+      justify-content: center;
+      flex-wrap: wrap;
     }
 
     .quiz-container {
@@ -25,11 +54,28 @@
       width: 300px;
       text-align: center;
       backdrop-filter: blur(10px);
+      opacity: 0;
+      transform: translateY(30px);
+      animation: fadeInUp 1s ease forwards;
     }
 
-    h2 {
+    .quiz-container:nth-child(1) {
+      animation-delay: 0.5s;
+    }
+
+    .quiz-container:nth-child(2) {
+      animation-delay: 1s;
+    }
+
+    .quiz-container h2 {
       text-shadow: 0 0 10px #00ffe5;
       margin-bottom: 20px;
+    }
+
+    .quiz-container p {
+      font-size: 14px;
+      margin-bottom: 20px;
+      text-shadow: 0 0 5px #00ffe5;
     }
 
     .quiz-button {
@@ -46,29 +92,59 @@
       transition: background-color 0.3s;
     }
 
-.quiz-button:hover {
-  background-color: rgba(0, 255, 229, 0.2);
-}
-
-    button:hover {
+    .quiz-button:hover {
       background-color: rgba(0, 255, 229, 0.2);
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+    /* ✨ Animations */
+    @keyframes pulseGlow {
+      0% {
+        text-shadow: 0 0 10px #00ffe5;
+      }
+      100% {
+        text-shadow: 0 0 25px #00ffe5;
+      }
+    }
+
+    @keyframes fadeInUp {
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
   </style>
 </head>
 <body>
-  <h3> WELCOME TO QUIZ SECTION</h3>
-  <p>this where you can check and try to be member of BMMA</p>
-  <div class="quiz-container">
-    <h2>Easy Quiz</h2>
-    <P>this quiz is good for who want to know BMMA while easily understand</P>
-    <a href="quiz.html" class="quiz-button">Start Easy</a>
+
+  <div class="quiz-header">
+    <h1>WELCOME TO QUIZ SECTION</h1>
+    <p>This is where you can check and try to be a member of BMMA</p>
   </div>
-  <div class="quiz-container">
-    <h2>Hard Quiz</h2>
-    <P>this quiz is for BMMA student entry or for those who want to be BMMA</P>
-    <a href="quiz2.html" class="quiz-button">Start Hard</a>
+
+  <div class="quiz-container-wrapper">
+    <div class="quiz-container">
+      <h2>Easy Quiz</h2>
+      <p>This quiz is good for those who want to know BMMA while easily understanding it.</p>
+      <a href="quiz.html" class="quiz-button">Start Easy</a>
+    </div>
+
+    <div class="quiz-container">
+      <h2>Hard Quiz</h2>
+      <p>This quiz is for BMMA student entry or for those who want to become a BMMA member.</p>
+      <a href="quiz2.html" class="quiz-button">Start Hard</a>
+    </div>
   </div>
+
 </body>
 </html>
