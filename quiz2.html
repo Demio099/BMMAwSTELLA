@@ -10,10 +10,12 @@
       overflow: hidden;
       height: 100%;
     }
-    
+
     body {
       font-family: 'Orbitron', sans-serif;
       background: url(Images/background.png);
+      background-size: cover;
+      background-position: center;
       color: #00ffe5;
       padding: 20px;
       display: flex;
@@ -123,9 +125,6 @@
       text-align: center;
       flex-direction: column;
       animation: fadeIn 1s ease-in-out;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
       user-select: none;
     }
 
@@ -147,7 +146,6 @@
       text-shadow: 0 0 10px #5be4ff, 0 0 20px #2bc4ff;
       position: relative;
       z-index: 2;
-      pointer-events: none;
       opacity: 0;
       animation: textFadeIn 1.2s ease-in-out 0.3s forwards, pulse 2s infinite;
     }
@@ -168,19 +166,9 @@
       pointer-events: none;
     }
 
-    .fade-out::before {
-      opacity: 0;
-      transition: opacity 1s ease-in-out;
-    }
-
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
-    }
-
-    @keyframes fadeOut {
-      from { opacity: 1; }
-      to { opacity: 0; visibility: hidden; }
     }
 
     @keyframes pulse {
@@ -203,11 +191,12 @@
 </head>
 <body>
   <div id="intro-screen">
-    <h1>Believe in yourself, The future belongs to those who believe in the beauty of their dreams. <strong> good luck!</strong></h1>
+    <h1>Believe in yourself, The future belongs to those who believe in the beauty of their dreams. <strong>Good luck!</strong></h1>
     <video autoplay muted loop>
       <source src="Images/intro_bg1.mp4" type="video/mp4" />
     </video>
   </div>
+
   <div class="quiz-container">
     <div class="question-section">
       <div class="timer" id="timer">Time left: 60s</div>
@@ -218,58 +207,7 @@
   </div>
 
   <script>
-    const questions = [
-      {
-        question: "What can be an effective guide for good composition?",
-        options: ["The rule of thirds", "The golden triangle rule", "The rule of odds"],
-        answer: 0
-      },
-      {
-        question: "What is the main purpose of a camera's built in light meter?",
-        options: ["To measure the amount of light for the correct exposure level", "To tell you the correct ISO setting", "To complete the required amount of exposure thru ISO"],
-        answer: 0
-      },
-      {
-        question: "Why is it a good idea to use a DSLR camera in complete manual mode?",
-        options: ["You will always get your exposures correct", "You will have more creative control", "you will have more control both"],
-        answer: 1
-      },
-      {
-        question: "On most cameras what does AV stand for?",
-        options: ["Aperture value", "Angle variation", "Audio visual"],
-        answer: 0
-      },
-      {
-        question: "What is a pixel in photographic terms?",
-        options: ["100th of a mega pixel", "A single square unit of colour and exposure info image", "Angle variation"],
-        answer: 1
-      },
-      {
-        question: "On a full frame 35mm DSLR camera, which of the following lenses would be best for portrait work?",
-        options: ["85mm", "18mm", "35mm"],
-        answer: 0
-      },
-      {
-        question: "What is a 'prime' lens?",
-        options: ["A lens of a fixed focal length", "A portrait lens", "A telephoto lens"],
-        answer: 0
-      },
-      {
-        question: "What does the “Merge by Distance” operation actually do?",
-        options: ["Joins objects based on location", "Collapses geometry to a center point", "Merges vertices that are within a set threshold"],
-        answer: 2
-      },
-      {
-        question: "Which modifier allows you to non-destructively cut into a mesh using another object?",
-        options: ["Boolean", "Bevel", "Solidify", "Decimate"],
-        answer: 0
-      },
-      {
-        question: "What is the main difference between Auto Smooth and Normal Edit modifiers?",
-        options: ["Auto Smooth applies real-time bevels; Normal Edit changes topology", "Auto Smooth adjusts mesh normals based on angle; Normal Edit overrides normals with custom directions", "Auto Smooth is used for sculpting; Normal Edit is for retopology"],
-        answer: 1
-      }
-    ];
+    const questions = [/* your question objects */];
 
     function shuffleArray(array) {
       for (let i = array.length - 1; i > 0; i--) {
@@ -283,8 +221,7 @@
     let timer;
     let timeLeft = 60;
     let selectedOption = null;
-    let startTime;
-    let endTime;
+    let startTime, endTime;
 
     function startQuiz() {
       startTime = Date.now();
@@ -304,7 +241,9 @@
         button.className = 'option-button';
         button.onclick = () => {
           selectedOption = index;
-          Array.from(document.querySelectorAll('.option-button')).forEach(btn => btn.style.backgroundColor = 'rgba(0, 255, 229, 0.1)');
+          document.querySelectorAll('.option-button').forEach(btn => {
+            btn.style.backgroundColor = 'rgba(0, 255, 229, 0.1)';
+          });
           button.style.backgroundColor = 'rgba(0, 255, 229, 0.4)';
           setTimeout(() => nextQuestion(), 500);
         };
@@ -315,10 +254,10 @@
     function startTimer() {
       clearInterval(timer);
       timeLeft = 60;
-      document.getElementById("timer").textContent = Time left: ${timeLeft}s;
+      document.getElementById("timer").textContent = `Time left: ${timeLeft}s`;
       timer = setInterval(() => {
         timeLeft--;
-        document.getElementById("timer").textContent = Time left: ${timeLeft}s;
+        document.getElementById("timer").textContent = `Time left: ${timeLeft}s`;
         if (timeLeft <= 0) {
           clearInterval(timer);
           nextQuestion();
@@ -353,26 +292,22 @@
 
       const total = questions.length;
       const percent = (score / total) * 100;
-      let message = "";
-      if (percent < 20) {
-        message = "Sorry, try again next time.";
-      } else if (percent < 50) {
-        message = "Nice try, you gave it all you got!";
-      } else {
-        message = "Congrats, you did it!";
-      }
+      let message = percent < 20 ? "Sorry, try again next time." :
+                    percent < 50 ? "Nice try, you gave it all you got!" :
+                    "Congrats, you did it!";
 
       const result = document.getElementById("result");
       result.classList.remove("hidden");
-      result.innerHTML = 
+      result.innerHTML = `
         <h2 style='text-shadow: 0 0 10px #00ffe5;'>${message}</h2>
         <p>You answered ${score} out of ${total} questions correctly.</p>
         <p>Time taken: ${duration} seconds.</p>
-      ;
+      `;
     }
 
     shuffleArray(questions);
-     window.addEventListener('load', () => {
+
+    window.addEventListener('load', () => {
       const intro = document.getElementById('intro-screen');
       setTimeout(() => {
         intro.classList.add('fade-out');
