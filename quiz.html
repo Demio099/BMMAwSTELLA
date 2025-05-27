@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+  <meta charset="UTF-8" />
   <title>Hologram Quiz</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
     body {
       font-family: 'Orbitron', sans-serif;
       background: url(Images/background.png);
@@ -100,6 +102,7 @@
     button:hover {
       background-color: rgba(0, 255, 229, 0.2);
     }
+
     #intro-screen {
       position: fixed;
       z-index: 9999;
@@ -118,7 +121,7 @@
       -webkit-user-select: none;
       -moz-user-select: none;
       -ms-user-select: none;
-      user-select: none;  
+      user-select: none;
     }
 
     #intro-screen::before {
@@ -128,7 +131,7 @@
       left: 0;
       width: 100%;
       height: 100%;
-      background: rgba(0, 0, 0, 0.5); 
+      background: rgba(0, 0, 0, 0.5);
       z-index: 1;
     }
 
@@ -154,20 +157,19 @@
       z-index: -1;
     }
 
-
     .fade-out {
-     opacity: 0;
-     transition: opacity 1s ease-in-out;
-     pointer-events: none;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      pointer-events: none;
     }
 
     .fade-out::before {
-     opacity: 0;
-     transition: opacity 1s ease-in-out;
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
     }
 
     @keyframes fadeIn {
-      from { background-color:#000 0; }
+      from { opacity: 0; }
       to { opacity: 1; }
     }
 
@@ -184,18 +186,17 @@
         text-shadow: 0 0 20px #a3f7ff, 0 0 40px #2bc4ff;
       }
     }
+
     @keyframes textFadeIn {
       to {
-       opacity: 1;
+        opacity: 1;
       }
     }
-
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
   </style>
 </head>
 <body>
   <div id="intro-screen">
-    <h1>Believe in yourself, The future belongs to those who believe in the beauty of their dreams. <strong> good luck!</strong></strong></h1>
+    <h1>Believe in yourself, The future belongs to those who believe in the beauty of their dreams. <strong> good luck!</strong></h1>
     <video autoplay muted loop>
       <source src="Images/intro_bg1.mp4" type="video/mp4" />
     </video>
@@ -210,15 +211,6 @@
   </div>
 
   <script>
-    document.addEventListener('DOMContentLoaded', () => {
-    // Fade out intro screen
-    window.addEventListener('load', () => {
-      const intro = document.getElementById('intro-screen');
-      setTimeout(() => {
-        intro.classList.add('fade-out');
-        setTimeout(() => intro.remove(), 1000);
-      }, 3000);
-    });
     const questions = [
       {
         question: "In digital art, you can undo a mistake by pressing Ctrl + Z.",
@@ -390,7 +382,18 @@
     }
 
     shuffleArray(questions);
-    window.onload = startQuiz;
+
+    // Start the intro fadeout and then the quiz after page load
+    window.addEventListener('load', () => {
+      const intro = document.getElementById('intro-screen');
+      setTimeout(() => {
+        intro.classList.add('fade-out');
+        setTimeout(() => {
+          intro.remove();
+          startQuiz();
+        }, 1000);
+      }, 3000);
+    });
   </script>
 </body>
 </html>
