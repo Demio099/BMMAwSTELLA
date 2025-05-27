@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
   <title>Hologram Quiz</title>
   <style>
     html, body {
@@ -10,6 +10,7 @@
       overflow: hidden;
       height: 100%;
     }
+    
     body {
       font-family: 'Orbitron', sans-serif;
       background: url(Images/background.png);
@@ -19,8 +20,8 @@
       align-items: center;
       justify-content: center;
       height: 100vh;
-      position: relative;
     }
+
     .quiz-container {
       background: rgba(0, 255, 229, 0.1);
       border: 1px solid #00ffe5;
@@ -34,13 +35,13 @@
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 1;
     }
+
     .question-section {
       width: 100%;
       margin-bottom: 50px;
-      text-align: center;
     }
+
     .options-section {
       display: flex;
       flex-wrap: wrap;
@@ -48,11 +49,14 @@
       gap: 20px;
       width: 100%;
     }
+
     .question {
       font-size: 24px;
       margin-bottom: 15px;
       text-shadow: 0 0 5px #00ffe5;
+      text-align: center;
     }
+
     .option-button {
       padding: 10px 20px;
       background-color: rgba(0, 255, 229, 0.1);
@@ -65,24 +69,30 @@
       transition: background-color 0.3s;
       min-width: 120px;
     }
+
     .option-button:hover {
       background-color: rgba(0, 255, 229, 0.3);
     }
+
     .timer {
       font-weight: bold;
       font-size: 20px;
       text-shadow: 0 0 5px #00ffe5;
       margin-bottom: 20px;
+      text-align: center;
     }
+
     .hidden {
       display: none;
     }
+
     .result {
       font-size: 20px;
       margin-top: 30px;
       text-shadow: 0 0 5px #00ffe5;
       text-align: center;
     }
+
     button {
       background: transparent;
       border: 2px solid #00ffe5;
@@ -93,60 +103,114 @@
       cursor: pointer;
       text-shadow: 0 0 5px #00ffe5;
     }
+
     button:hover {
       background-color: rgba(0, 255, 229, 0.2);
     }
-    #pauseBtn {
-      margin-bottom: 20px;
-    }
 
-    /* Intro overlay styles */
-    #introOverlay {
+    #intro-screen {
       position: fixed;
-      top: 0; left: 0; right: 0; bottom: 0;
-      background: black;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      color: white;
       display: flex;
-      flex-direction: column;
       justify-content: center;
       align-items: center;
-      z-index: 1000;
+      text-align: center;
+      flex-direction: column;
+      animation: fadeIn 1s ease-in-out;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
     }
-    #introVideo {
-      max-width: 80vw;
-      max-height: 80vh;
-      border-radius: 15px;
-      box-shadow: 0 0 30px #00ffe5;
+
+    #intro-screen::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: 1;
     }
-    #skipBtn {
-      margin-top: 15px;
-      background: transparent;
-      border: 2px solid #00ffe5;
-      padding: 10px 25px;
-      border-radius: 8px;
-      color: #00ffe5;
-      font-size: 18px;
-      cursor: pointer;
-      text-shadow: 0 0 5px #00ffe5;
-      transition: background-color 0.3s;
+
+    #intro-screen h1 {
+      font-size: 2em;
+      padding: 0 20px;
+      color: #ffffff;
+      text-shadow: 0 0 10px #5be4ff, 0 0 20px #2bc4ff;
+      position: relative;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      animation: textFadeIn 1.2s ease-in-out 0.3s forwards, pulse 2s infinite;
     }
-    #skipBtn:hover {
-      background-color: rgba(0, 255, 229, 0.2);
+
+    #intro-screen video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
     }
+
+    .fade-out {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+      pointer-events: none;
+    }
+
+    .fade-out::before {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 10px #5be4ff, 0 0 20px #2bc4ff;
+      }
+      50% {
+        text-shadow: 0 0 20px #a3f7ff, 0 0 40px #2bc4ff;
+      }
+    }
+
+    @keyframes textFadeIn {
+      to {
+        opacity: 1;
+      }
+    }
+
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
   </style>
 </head>
 <body>
-  <div id="introOverlay">
-    <video id="introVideo" autoplay muted>
-      <source src="path/to/your-intro-video.mp4" type="video/mp4" />
+  <div id="intro-screen">
+    <h1>Believe in yourself, The future belongs to those who believe in the beauty of their dreams. <strong> good luck!</strong></h1>
+    <video autoplay muted loop>
+      <source src="Images/intro_bg1.mp4" type="video/mp4" />
     </video>
-    <button id="skipBtn">Skip Intro</button>
   </div>
-
-  <div class="quiz-container hidden" id="quizContainer">
+  <div class="quiz-container">
     <div class="question-section">
       <div class="timer" id="timer">Time left: 60s</div>
-      <button id="pauseBtn">Pause</button>
       <div class="question" id="question">Loading...</div>
     </div>
     <div class="options-section" id="options"></div>
@@ -154,12 +218,6 @@
   </div>
 
   <script>
-    const introOverlay = document.getElementById('introOverlay');
-    const introVideo = document.getElementById('introVideo');
-    const skipBtn = document.getElementById('skipBtn');
-    const quizContainer = document.getElementById('quizContainer');
-
-    // Quiz variables and elements
     const questions = [
       {
         question: "What can be an effective guide for good composition?",
@@ -222,73 +280,32 @@
 
     let currentQuestion = 0;
     let score = 0;
-    let timer = null;
+    let timer;
     let timeLeft = 60;
     let selectedOption = null;
     let startTime;
     let endTime;
-    let paused = false;
-
-    const timerElement = document.getElementById("timer");
-    const pauseBtn = document.getElementById("pauseBtn");
-    const questionElement = document.getElementById("question");
-    const optionsList = document.getElementById("options");
-    const resultElement = document.getElementById("result");
-
-    pauseBtn.addEventListener("click", () => {
-      if (!paused) {
-        pauseTimer();
-      } else {
-        resumeTimer();
-      }
-    });
-
-    skipBtn.addEventListener("click", () => {
-      endIntro();
-    });
-
-    introVideo.addEventListener("ended", () => {
-      endIntro();
-    });
-
-    function endIntro() {
-      introOverlay.style.display = "none";
-      quizContainer.classList.remove("hidden");
-      startQuiz();
-    }
 
     function startQuiz() {
       startTime = Date.now();
-      shuffleArray(questions);
-      currentQuestion = 0;
-      score = 0;
       showQuestion();
       startTimer();
     }
 
     function showQuestion() {
       selectedOption = null;
-      paused = false;
-      pauseBtn.textContent = "Pause";
-
       const q = questions[currentQuestion];
-      questionElement.textContent = q.question;
-
+      document.getElementById("question").textContent = q.question;
+      const optionsList = document.getElementById("options");
       optionsList.innerHTML = '';
-      resultElement.classList.add("hidden");
-
       q.options.forEach((opt, index) => {
         const button = document.createElement('button');
         button.textContent = opt;
         button.className = 'option-button';
-        button.disabled = false;
-        button.style.backgroundColor = 'rgba(0, 255, 229, 0.1)';
         button.onclick = () => {
-          if (paused) return; // Ignore clicks when paused
           selectedOption = index;
           Array.from(document.querySelectorAll('.option-button')).forEach(btn => btn.style.backgroundColor = 'rgba(0, 255, 229, 0.1)');
           button.style.backgroundColor = 'rgba(0, 255, 229, 0.4)';
-          clearInterval(timer);
           setTimeout(() => nextQuestion(), 500);
         };
         optionsList.appendChild(button);
@@ -298,32 +315,15 @@
     function startTimer() {
       clearInterval(timer);
       timeLeft = 60;
-      updateTimerDisplay();
-
+      document.getElementById("timer").textContent = Time left: ${timeLeft}s;
       timer = setInterval(() => {
-        if (!paused) {
-          timeLeft--;
-          updateTimerDisplay();
-          if (timeLeft <= 0) {
-            clearInterval(timer);
-            nextQuestion();
-          }
+        timeLeft--;
+        document.getElementById("timer").textContent = Time left: ${timeLeft}s;
+        if (timeLeft <= 0) {
+          clearInterval(timer);
+          nextQuestion();
         }
       }, 1000);
-    }
-
-    function pauseTimer() {
-      paused = true;
-      pauseBtn.textContent = "Resume";
-    }
-
-    function resumeTimer() {
-      paused = false;
-      pauseBtn.textContent = "Pause";
-    }
-
-    function updateTimerDisplay() {
-      timerElement.textContent = `Time left: ${timeLeft}s`;
     }
 
     function nextQuestion() {
@@ -347,11 +347,9 @@
       clearInterval(timer);
       endTime = Date.now();
       const duration = Math.floor((endTime - startTime) / 1000);
-
-      questionElement.classList.add("hidden");
-      optionsList.classList.add("hidden");
-      timerElement.classList.add("hidden");
-      pauseBtn.classList.add("hidden");
+      document.getElementById("question").classList.add("hidden");
+      document.getElementById("options").classList.add("hidden");
+      document.getElementById("timer").classList.add("hidden");
 
       const total = questions.length;
       const percent = (score / total) * 100;
@@ -364,13 +362,26 @@
         message = "Congrats, you did it!";
       }
 
-      resultElement.classList.remove("hidden");
-      resultElement.innerHTML = `
+      const result = document.getElementById("result");
+      result.classList.remove("hidden");
+      result.innerHTML = 
         <h2 style='text-shadow: 0 0 10px #00ffe5;'>${message}</h2>
         <p>You answered ${score} out of ${total} questions correctly.</p>
         <p>Time taken: ${duration} seconds.</p>
-      `;
+      ;
     }
+
+    shuffleArray(questions);
+     window.addEventListener('load', () => {
+      const intro = document.getElementById('intro-screen');
+      setTimeout(() => {
+        intro.classList.add('fade-out');
+        setTimeout(() => {
+          intro.remove();
+          startQuiz();
+        }, 1000);
+      }, 3000);
+    });
   </script>
 </body>
 </html>
