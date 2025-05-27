@@ -100,6 +100,95 @@
     button:hover {
       background-color: rgba(0, 255, 229, 0.2);
     }
+    #intro-screen {
+      position: fixed;
+      z-index: 9999;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      flex-direction: column;
+      animation: fadeIn 1s ease-in-out;
+      -webkit-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;  
+    }
+
+    #intro-screen::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5); 
+      z-index: 1;
+    }
+
+    #intro-screen h1 {
+      font-size: 2em;
+      padding: 0 20px;
+      color: #ffffff;
+      text-shadow: 0 0 10px #5be4ff, 0 0 20px #2bc4ff;
+      position: relative;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0;
+      animation: textFadeIn 1.2s ease-in-out 0.3s forwards, pulse 2s infinite;
+    }
+
+    #intro-screen video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+
+
+    .fade-out {
+     opacity: 0;
+     transition: opacity 1s ease-in-out;
+     pointer-events: none;
+    }
+
+    .fade-out::before {
+     opacity: 0;
+     transition: opacity 1s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from { background-color:#000 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        text-shadow: 0 0 10px #5be4ff, 0 0 20px #2bc4ff;
+      }
+      50% {
+        text-shadow: 0 0 20px #a3f7ff, 0 0 40px #2bc4ff;
+      }
+    }
+    @keyframes textFadeIn {
+      to {
+       opacity: 1;
+      }
+    }
 
     @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
   </style>
