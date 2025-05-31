@@ -224,6 +224,8 @@
   <audio id="tickSound" src="Sound/tick.wav" preload="auto"></audio>
   <audio id="correctSound" src="Sound/correct.wav" preload="auto"></audio>
   <audio id="wrongSound" src="Sound/wrong.mp3" preload="auto"></audio>
+  <audio id="successSound" src="Sound/success.wav" preload="auto"></audio>
+  <audio id="failSound" src="Sound/fail.mp3" preload="auto"></audio>
  <script>
   const questions = [
     {
@@ -403,34 +405,44 @@
     }
   }
 
-  function endQuiz() {
-    clearInterval(timer);
-    endTime = Date.now();
-    const duration = Math.floor((endTime - startTime) / 1000);
-    document.getElementById("question").classList.add("hidden");
-    document.getElementById("options").classList.add("hidden");
-    document.getElementById("timer").classList.add("hidden");
-    document.getElementById("feedback").classList.add("hidden");
+function endQuiz() {
+  clearInterval(timer);
+  endTime = Date.now();
+  const duration = Math.floor((endTime - startTime) / 1000);
+  document.getElementById("question").classList.add("hidden");
+  document.getElementById("options").classList.add("hidden");
+  document.getElementById("timer").classList.add("hidden");
+  document.getElementById("feedback").classList.add("hidden");
 
-    const total = questions.length;
-    const percent = (score / total) * 100;
-    let message = "";
-    if (percent < 20) {
-      message = "Sorry, try again next time.";
-    } else if (percent < 50) {
-      message = "Nice try, you gave it all you got!";
-    } else {
-      message = "Congrats, you did it!";
-    }
+  const total = questions.length;
+  const percent = (score / total) * 100;
+  let message = "";
+  const successSound = document.getElementById("successSound");
+  const failSound = document.getElementById("failSound");
 
-    const result = document.getElementById("result");
-    result.classList.remove("hidden");
-    result.innerHTML = `
-      <h2 style='text-shadow: 0 0 10px #00ffe5;'>${message}</h2>
-      <p>You answered ${score} out of ${total} questions correctly.</p>
-      <p>Time taken: ${duration} seconds.</p>
-    `;
+  if (percent < 20) {
+    message = "Sorry, try again next time.";
+    failSound.currentTime = 0;
+    failSound.play().catch(() => {});
+  } else if (percent < 50) {
+    message = "Nice try, you gave it all you got!";
+    failSound.currentTime = 0;
+    failSound.play().catch(() => {});
+  } else {
+    message = "Congrats, you did it!";
+    successSound.currentTime = 0;
+    successSound.play().catch(() => {});
   }
+
+  const result = document.getElementById("result");
+  result.classList.remove("hidden");
+  result.innerHTML = `
+    <h2 style='text-shadow: 0 0 10px #00ffe5;'>${message}</h2>
+    <p>You answered ${score} out of ${total} questions correctly.</p>
+    <p>Time taken: ${duration} seconds.</p>
+  `;
+}
+
 
   window.addEventListener('load', () => {
     const intro = document.getElementById('intro-screen');
