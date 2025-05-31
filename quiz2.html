@@ -4,11 +4,13 @@
   <meta charset="UTF-8" />
   <title>Hologram Quiz</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
     html, body {
-      margin: 0;
-      padding: 0;
       overflow: hidden;
       height: 100%;
+      margin: 0;
+      padding: 0;
     }
 
     body {
@@ -39,7 +41,7 @@
 
     .question-section {
       width: 100%;
-      margin-bottom: 50px;
+      margin-bottom: 80px;
     }
 
     .options-section {
@@ -52,7 +54,7 @@
 
     .question {
       font-size: 24px;
-      margin-bottom: 15px;
+      margin-bottom: 20px;
       text-shadow: 0 0 5px #00ffe5;
       text-align: center;
     }
@@ -91,6 +93,13 @@
       margin-top: 30px;
       text-shadow: 0 0 5px #00ffe5;
       text-align: center;
+    }
+
+    #feedback {
+      margin-top: 20px;
+      font-size: 18px;
+      text-align: center;
+      text-shadow: 0 0 5px #00ffe5;
     }
 
     button {
@@ -144,6 +153,7 @@
       text-shadow: 0 0 10px #5be4ff, 0 0 20px #2bc4ff;
       position: relative;
       z-index: 2;
+      pointer-events: none;
       opacity: 0;
       animation: textFadeIn 1.2s ease-in-out 0.3s forwards, pulse 2s infinite;
     }
@@ -164,13 +174,19 @@
       pointer-events: none;
     }
 
+    .fade-out::before {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+
     @keyframes fadeIn {
       from { opacity: 0; }
       to { opacity: 1; }
     }
 
-    @keyframes textFadeIn {
-      to { opacity: 1; }
+    @keyframes fadeOut {
+      from { opacity: 1; }
+      to { opacity: 0; visibility: hidden; }
     }
 
     @keyframes pulse {
@@ -182,23 +198,27 @@
       }
     }
 
-    @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+    @keyframes textFadeIn {
+      to {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 <body>
   <div id="intro-screen">
-    <h1>Believe in yourself, The future belongs to those who believe in the beauty of their dreams. <strong>Good luck!</strong></h1>
+    <h1>Believe in yourself, The future belongs to those who believe in the beauty of their dreams. <strong> good luck!</strong></h1>
     <video autoplay muted loop>
       <source src="Images/intro_bg1.mp4" type="video/mp4" />
     </video>
   </div>
-
   <div class="quiz-container">
     <div class="question-section">
       <div class="timer" id="timer">Time left: 60s</div>
       <div class="question" id="question">Loading...</div>
     </div>
     <div class="options-section" id="options"></div>
+    <div id="feedback"></div>
     <div class="result hidden" id="result"></div>
   </div>
 
@@ -268,9 +288,11 @@
     let timer;
     let timeLeft = 60;
     let selectedOption = null;
-    let startTime, endTime;
+    let startTime;
+    let endTime;
 
     function startQuiz() {
+      shuffleArray(questions);
       startTime = Date.now();
       showQuestion();
       startTimer();
@@ -281,21 +303,27 @@
       const q = questions[currentQuestion];
       document.getElementById("question").textContent = q.question;
       const optionsList = document.getElementById("options");
+      const feedbackDiv = document.getElementById("feedback");
+      feedbackDiv.textContent = "";
       optionsList.innerHTML = '';
+
       q.options.forEach((opt, index) => {
         const button = document.createElement('button');
         button.textContent = opt;
         button.className = 'option-button';
+
         button.onclick = () => {
-          if (selectedOption !== null) return;
           selectedOption = index;
-          document.querySelectorAll('.option-button').forEach(btn => {
-            btn.style.backgroundColor = 'rgba(0, 255, 229, 0.1)';
-            btn.disabled = true;
-          });
-          button.style.backgroundColor = 'rgba(0, 255, 229, 0.4)';
-          setTimeout(() => nextQuestion(), 500);
+          const correctIndex = q.answer;
+          if (index === correctIndex) {
+            feedbackDiv.textContent = `✅ Correct! The answer is: ${q.options[correctIndex]}`;
+          } else {
+            feedbackDiv.textContent = `❌ Incorrect. The correct answer is: ${q.options[correctIndex]}`;
+          }
+          Array.from(document.querySelectorAll('.option-button')).forEach(btn => btn.disabled = true);
+          setTimeout(() => nextQuestion(), 1500);
         };
+
         optionsList.appendChild(button);
       });
     }
@@ -338,6 +366,7 @@
       document.getElementById("question").classList.add("hidden");
       document.getElementById("options").classList.add("hidden");
       document.getElementById("timer").classList.add("hidden");
+      document.getElementById("feedback").classList.add("hidden");
 
       const total = questions.length;
       const percent = (score / total) * 100;
@@ -358,8 +387,6 @@
         <p>Time taken: ${duration} seconds.</p>
       `;
     }
-
-    shuffleArray(questions);
 
     window.addEventListener('load', () => {
       const intro = document.getElementById('intro-screen');
