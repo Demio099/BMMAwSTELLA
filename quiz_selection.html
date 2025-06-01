@@ -150,5 +150,29 @@
       </div>
     </div>
   </div>
+  <audio id="click-sound" src="Sounds/s2.mp3"></audio>
+  <audio id="link-sound" src="Sounds/s1.mp3"></audio>
+  <script>
+  document.addEventListener('DOMContentLoaded', () => {
+  const clickSound = document.getElementById('click-sound');
+  const linkSound = document.getElementById('link-sound');
+
+  // Play generic click sound
+  document.addEventListener('mousedown', (e) => {
+    // Don’t play if it's a link/button
+    if (e.target.closest('a, button')) return;
+    clickSound.currentTime = 0;
+    clickSound.play();
+  });
+
+  // Play link/button click sound
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('click', () => {
+      linkSound.currentTime = 0;
+      linkSound.play();
+    });
+  });
+});
+</script>
 </body>
 </html>
