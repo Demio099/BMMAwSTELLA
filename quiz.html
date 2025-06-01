@@ -350,6 +350,8 @@
 
 function endQuiz() {
   clearInterval(timer);
+  document.getElementById("tickSound").pause();
+  
   endTime = Date.now();
   const duration = Math.floor((endTime - startTime) / 1000);
   document.getElementById("question").classList.add("hidden");
